@@ -1,0 +1,13 @@
+machine:
+
+  timezone:
+    America/Los_Angeles
+
+  node:
+    version: 7.0.0
+
+database:
+
+  override:
+    - "createdb lango_test"
+    - "knex migrate: latest --env test"

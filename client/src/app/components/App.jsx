@@ -23,8 +23,6 @@ class App extends Component {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
         <div>
-          <Link to='/nav'>Nav</Link>
-          <Link to='/profile'>Profile</Link>
           {this.props.children}
         </div>
       </MuiThemeProvider>

@@ -10,14 +10,22 @@ import Chat from './Chat';
 import DashButtons from './DashButtons';
 import $ from 'jquery';
 import dashReducer from '../reducers/Dashboard';
+import AppBar from 'material-ui/AppBar';
 
 let userId;
+
+const styles = {
+  container: {
+    textAlign: 'center',
+    paddingTop: 100,
+  }
+};
 
 // look for reducer not found error
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-    
+
     const logger = createLogger();
     let initialState = {
       myId: null,
@@ -29,7 +37,7 @@ class Dashboard extends Component {
 
     this.store = createStore(dashReducer, initialState, applyMiddleware( thunk, promise, logger ));
     this.store.subscribe(this.setState.bind(this, {}));
-    
+
     $.get('/api/users')
       .done((data) => {
         userId = data;
@@ -37,7 +45,7 @@ class Dashboard extends Component {
   }
 
   componentWillMount() {
-    this.props.getUserId().then( (resp) => { console.log('hhhhh', resp.data); }); 
+    this.props.getUserId().then( (resp) => { console.log('hhhhh', resp.data); });
   }
 
   reDirect() {
@@ -50,18 +58,23 @@ class Dashboard extends Component {
     let comp = null;
 
     if ( viewControl === 0 ) {
-      comp = <DashButtons store={ this.store } />; 
+      comp = <DashButtons store={ this.store } />;
     } else if ( viewControl === 1 ) {
       comp = <LaunchPad userId={ userId } store={ this.store }/>;
     } else if ( viewControl === 2 ) {
       comp = <Chat store={ this.store }/>;
     }
-    
+
     return (
       <div>
-
-        { comp }
-        
+        <AppBar
+          title="Lango"
+          titleStyle={{ textAlign: 'center' }}
+          showMenuIconButton={false}
+        />
+        <div style={styles.container}>
+          { comp }
+        </div>
       </div>
     );
   }

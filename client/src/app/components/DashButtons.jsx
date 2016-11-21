@@ -7,7 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 const style = {
   textAlign: 'center',
-  paddingTop: 200,  
+  margin: 12,
 };
 
 class DashButtons extends Component {
@@ -17,21 +17,6 @@ class DashButtons extends Component {
       open: false,
     };
   }
-
-  handleTouchTap = (event) => {
-    // This prevents ghost click.
-    event.preventDefault();
-    this.setState({
-      open: true,
-      anchorEl: event.currentTarget,
-    });
-  };
-
-  handleRequestClose = () => {
-    this.setState({
-      open: false,
-    });
-  };
 
   handleTeach(e) {
     e.preventDefault();
@@ -51,27 +36,22 @@ class DashButtons extends Component {
   render() {
     return (
       <div style={style}>
-         <RaisedButton
-           onTouchTap={this.handleTouchTap}
-           label="Get Started"
-           primary
-         />
-         <Popover
-           open={this.state.open}
-           anchorEl={this.state.anchorEl}
-           anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-           targetOrigin={{horizontal: 'left', vertical: 'top'}}
-           onRequestClose={this.handleRequestClose}
-         >
-           <Menu>
-             <MenuItem primaryText="Teach" onClick={ this.handleTeach.bind(this)}/>
-             <MenuItem primaryText="Learn" onClick={ this.handleLearn.bind(this)}/>
-           </Menu>
-         </Popover>
+        <RaisedButton
+          label="Teach"
+          primary
+          style={style}
+          onTouchTap={ this.handleTeach.bind(this) }
+        />
+        <br />
+        <RaisedButton
+          label="Learn"
+          primary
+          style={style}
+          onTouchTap={ this.handleLearn.bind(this) }
+        />
        </div>
     );
   }
 }
 
 export default DashButtons;
-       
