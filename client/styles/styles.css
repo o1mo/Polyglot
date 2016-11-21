@@ -1,0 +1,17 @@
+.dashBoardButtons {
+  text-align: center;
+}
+
+.container {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  z-index: -1;
+  background: url('../src/public/img/mountains.jpeg') no-repeat center center fixed;
+  background-size: cover;
+}

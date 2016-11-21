@@ -1,19 +1,42 @@
 const express = require('express');
-const path = require('path');
-
-const bodyParser = require('body-parser');
-const handlers = require('./controllers/controllers.js');
-// const server = require('http').Server(app);
-
+const passport = require('passport');
+const Strategy = require('passport-facebook').Strategy;
 const app = express();
+const path = require('path');
+const db = require('../db/controllers/controllers.js');
+const usersController = require('./controllers/users');
+const sessionsController = require('./controllers/sessions');
+const viewRouter = require('./routes/routes');
+const strategy = require('./auth/fBStrategy');
+const bodyParser = require('body-parser');
 
 const PORT = 8000;
 
+app.use(require('morgan')('combined'));
+app.use(require('cookie-parser')());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
 app.use(express.static('client'));
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(strategy.fBStrategy);
+
+passport.serializeUser(strategy.serialize);
+passport.deserializeUser(strategy.deSerialize);
+
+app.use('/api/users', usersController);
+app.use('/api/sessions', sessionsController);
+app.use('/', viewRouter);
+app.get('/login/facebook', strategy.handleAuth);
+
+app.get('/login/facebook/return', strategy.handleAuthReturn, strategy.handleAuthCB);
+
+app.get('/profile', require('connect-ensure-login').ensureLoggedIn(), strategy.ensure);
 
 app.listen(PORT, () => {
   console.log('It\'s Alive!!');
 });
+
+module.exports = app;

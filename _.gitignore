@@ -15,6 +15,10 @@ lib-cov
 # Coverage directory used by tools like istanbul
 coverage
 
+# Webpack builds
+client/src/public/bundle.js
+client/src/public/bundle.map.js
+
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
 
