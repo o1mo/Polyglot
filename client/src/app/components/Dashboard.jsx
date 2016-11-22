@@ -11,6 +11,7 @@ import DashButtons from './DashButtons';
 import $ from 'jquery';
 import dashReducer from '../reducers/Dashboard';
 import AppBar from 'material-ui/AppBar';
+import SideDrawer from './SideDrawer';
 
 let userId;
 
@@ -71,7 +72,9 @@ class Dashboard extends Component {
           title="Lango"
           titleStyle={{ textAlign: 'center' }}
           showMenuIconButton={false}
-        />
+        >
+          <SideDrawer />
+        </AppBar>
         <div style={styles.container}>
           { comp }
         </div>

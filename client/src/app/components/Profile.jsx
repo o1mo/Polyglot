@@ -11,11 +11,12 @@ import Checkbox from 'material-ui/Checkbox';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import RaisedButton from 'material-ui/RaisedButton';
 import { indigo500 } from 'material-ui/styles/colors';
+import LearningChips from './LearningChips';
 
 const styles = {
   container: {
     textAlign: 'center',
-    width: '50%',
+    // width: '50%',
     margin: 'auto',
   },
 };
@@ -46,12 +47,10 @@ class Profile extends Component {
       <div>
         <div style={styles.container}>
         <h3>Profile</h3>
-        <Link to='/dashboard'><RaisedButton label="Save Profile" primary></RaisedButton></Link>
+        <Link to='/dashboard'><RaisedButton label="Save" primary></RaisedButton></Link>
         <br />
         <h4>Learning Languages</h4>
-          <List>
-            {learn}
-          </List>
+        <LearningChips />
         <h4>Teaching Languages</h4>
           <List>
             {teach}
