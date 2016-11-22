@@ -15,8 +15,6 @@ services:
     command: bash -c "npm install -g knex && knex migrate:latest --env production && npm start"
   postgres:
     image: postgres
-    expose:
-      - 5432
     environment:
-      - DB_NAME=lango
-      - DB_USER=lango
+      - POSTGRES_DB=lango
+      - POSTGRES_USER=lango

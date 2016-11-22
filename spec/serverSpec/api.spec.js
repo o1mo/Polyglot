@@ -85,5 +85,37 @@ describe('API tests', function() {
           });
       });
   });
+
+  it('Should POST to /api/languages/learner', function(done) {
+    var reqParams = {
+      uri: 'http://127.0.0.1:8000/api/languages/learner',
+      method: 'POST',
+      json: {
+        userId: '123',
+        teacher: 'true',
+      }
+    };
+    
+    request(reqParams, function(err, response, body) {
+      expect(response.statusCode).to.equal(401);
+      done();
+    });
+  });
+
+  it('Should POST to /api/languages/teacher', function(done) {
+    var reqParams = {
+      uri: 'http://127.0.0.1:8000/api/languages/teacher',
+      method: 'POST',
+      json: {
+        userId: '123',
+        teacher: 'true',
+      }
+    };
+    
+    request(reqParams, function(err, response, body) {
+      expect(response.statusCode).to.equal(401);
+      done();
+    });
+  });
 });
 

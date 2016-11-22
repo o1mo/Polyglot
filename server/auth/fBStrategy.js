@@ -9,8 +9,8 @@ const fBStrategy = new Strategy({
   clientID: keys.CLIENT_ID,
   clientSecret: keys.CLIENT_SECRET,
   callbackURL: 'http://localhost:8000/login/facebook/return',
-  profileFields :['email', 'displayName', 'id']
-},function(accessToken, refreshToken, profile, cb) {
+  profileFields: ['email', 'displayName', 'id']
+}, function(accessToken, refreshToken, profile, cb) {
   return cb(null, profile);
 });
 

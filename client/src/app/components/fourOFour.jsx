@@ -5,7 +5,9 @@ class fourOFour extends Component {
     super(props);
     this.getUser = this.getUser.bind(this);
   }
-
+  getUser() {
+    console.log('hello!!')
+  }
   render () {
     return (
       <div>

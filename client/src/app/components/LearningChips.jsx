@@ -6,8 +6,18 @@ import Chip from 'material-ui/Chip';
  * Note that since no `onTouchTap` property is defined, the Chip can be focused, but does not gain depth
  * while clicked or touched.
  */
-export default class LearningChips extends React.Component {
+const styles = {
+  chip: {
+    margin: 4,
+  },
+  wrapper: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
+};
 
+export default class LearningChips extends React.Component {
   constructor(props) {
     super(props);
     this.state = {chipData: [
@@ -16,16 +26,6 @@ export default class LearningChips extends React.Component {
       {key: 2, label: 'Chinese'},
       {key: 3, label: 'Arabic'},
     ]};
-    this.styles = {
-      chip: {
-        margin: 4,
-      },
-      wrapper: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-      },
-    };
   }
 
   handleRequestDelete = (key) => {
@@ -40,8 +40,7 @@ export default class LearningChips extends React.Component {
       <Chip
         key={data.key}
         onRequestDelete={() => this.handleRequestDelete(data.key)}
-        style={this.styles.chip}
-      >
+        style={ styles.chip }>
         {data.label}
       </Chip>
     );
@@ -49,7 +48,7 @@ export default class LearningChips extends React.Component {
 
   render() {
     return (
-      <div style={this.styles.wrapper}>
+      <div style={ styles.wrapper }>
         {this.state.chipData.map(this.renderChip, this)}
       </div>
     );

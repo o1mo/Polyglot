@@ -31,9 +31,11 @@ module.exports = (email, languageName, skillLevel) => {
       })
       .then(levelArr => {
         resolve(db('learners').insert({
+          /* eslint-disable */
           user_id: user.id,
           language_id: language.id,
           level_id: levelArr[0].id
+          /* eslint-enable */
         }, 'id'));
       });
   });

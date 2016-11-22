@@ -35,12 +35,12 @@ class Profile extends Component {
 
   render() {
 
-    const learn = this.state.learnLanguages.map((lang) => {
-      return <ListItem primaryText={lang} />;
+    const learn = this.state.learnLanguages.map((lang, key) => {
+      return <ListItem key={ key } primaryText={lang} />;
     });
 
-    const teach = this.state.teachLanguages.map((lang) => {
-      return <ListItem primaryText={lang} />;
+    const teach = this.state.teachLanguages.map((lang, key) => {
+      return <ListItem key={ key } primaryText={lang} />;
     });
 
     return (

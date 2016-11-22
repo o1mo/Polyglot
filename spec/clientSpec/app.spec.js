@@ -35,4 +35,9 @@ describe('React Components', function () {
     expect(wrapper.props().existTest).to.be.undefined;
   });
 
+  it('should have a launch pad component that renders menu items', function () {
+    const wrapper = shallow(<LaunchPad />);
+    expect(wrapper.props().getLanguages).to.be.defined;
+  });
+
 });

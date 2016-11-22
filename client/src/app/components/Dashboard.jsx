@@ -50,7 +50,7 @@ class Dashboard extends Component {
   }
 
   reDirect() {
-    return <Link to='/dashboard'><button>Save</button></Link>;
+    return <Link to='/dashboard'><button>Save</button></Link>
   }
 
   render() {
@@ -59,11 +59,11 @@ class Dashboard extends Component {
     let comp = null;
 
     if ( viewControl === 0 ) {
-      comp = <DashButtons store={ this.store } />;
+      comp = <DashButtons store={ this.store } />
     } else if ( viewControl === 1 ) {
-      comp = <LaunchPad userId={ userId } store={ this.store }/>;
+      comp = <LaunchPad userId={ userId } store={ this.store }/>
     } else if ( viewControl === 2 ) {
-      comp = <Chat store={ this.store }/>;
+      comp = <Chat store={ this.store }/>
     }
 
     return (

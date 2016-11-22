@@ -40,13 +40,6 @@ describe('Server Routes', function() {
     });
   });
 
-  it('Should respond with facebook data when route /login/facebook', function(done) {
-    request('http://127.0.0.1:8000/login/facebook', function(err, response, body) {
-      expect(response.statusCode).to.equal(200);
-      done();
-    });
-  });
-
   it('Should respond with facebook data when route /api/users', function(done) {
     request('http://127.0.0.1:8000/api/users', function(err, response, body) {
       expect(response.statusCode).to.equal(200);
@@ -54,8 +47,8 @@ describe('Server Routes', function() {
     });
   });
 
-  it('Should respond with facebook data when route /api/sessions', function(done) {
-    request('http://127.0.0.1:8000/api/sessions', function(err, response, body) {
+  it('Should respond all languages when route /api/languages', function(done) {
+    request('http://127.0.0.1:8000/api/languages', function(err, response, body) {
       expect(response.statusCode).to.equal(200);
       done();
     });

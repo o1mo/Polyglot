@@ -8,8 +8,13 @@ var ApiServices = ComposedComponent => class extends Component {
   getUserId() {
     return axios.get('api/users');
   }
+  getLanguages() {
+    return axios.get('api/languages');
+  }
   render() {
-    return <ComposedComponent getUserId={this.getUserId} />;
+    return <ComposedComponent 
+            getUserId={ this.getUserId } 
+            getLanguages = { this.getLanguages } />;
   }
 };
 
