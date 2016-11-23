@@ -1,14 +1,22 @@
+'use strict';
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const db = require('../../db/controllers/controllers.js');
 const Strategy = require('passport-facebook').Strategy;
 const keys = require('../config/keys.js');
+let IP;
+
+if (process.env.NODE_ENV === 'development') {
+  IP = 'localhost';
+} else {
+  IP = '138.68.0.65';
+}
 
 const fBStrategy = new Strategy({
   clientID: keys.CLIENT_ID,
   clientSecret: keys.CLIENT_SECRET,
-  callbackURL: 'http://localhost:8000/login/facebook/return',
+  callbackURL: 'http://' + IP + ':8000/login/facebook/return',
   profileFields: ['email', 'displayName', 'id']
 }, function(accessToken, refreshToken, profile, cb) {
   return cb(null, profile);

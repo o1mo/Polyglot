@@ -12,6 +12,7 @@ import $ from 'jquery';
 import dashReducer from '../reducers/Dashboard';
 import AppBar from 'material-ui/AppBar';
 import SideDrawer from './SideDrawer';
+import { connect } from 'react-redux';
 
 let userId;
 
@@ -23,21 +24,9 @@ const styles = {
 };
 
 // look for reducer not found error
-class Dashboard extends Component {
+export class Dashboard extends Component {
   constructor(props) {
     super(props);
-
-    const logger = createLogger();
-    let initialState = {
-      myId: null,
-      pairId: null,
-      language: null,
-      teacher: null,
-      view: 0,
-    };
-
-    this.store = createStore(dashReducer, initialState, applyMiddleware( thunk, promise, logger ));
-    this.store.subscribe(this.setState.bind(this, {}));
 
     $.get('/api/users')
       .done((data) => {
@@ -45,26 +34,24 @@ class Dashboard extends Component {
       });
   }
 
-  componentWillMount() {
-    this.props.getUserId().then( (resp) => { console.log('hhhhh', resp.data); });
-  }
-
+  /* eslint-disable */
   reDirect() {
     return <Link to='/dashboard'><button>Save</button></Link>
   }
 
   render() {
-
-    let viewControl = this.store.getState().view;
+    let viewControl = this.props.view;
     let comp = null;
 
     if ( viewControl === 0 ) {
-      comp = <DashButtons store={ this.store } />
+      comp = <DashButtons/>
     } else if ( viewControl === 1 ) {
-      comp = <LaunchPad userId={ userId } store={ this.store }/>
+      comp = <LaunchPad userId={ userId }/>
     } else if ( viewControl === 2 ) {
-      comp = <Chat store={ this.store }/>
+      comp = <Chat/>
     }
+
+    /* eslint-enable */ 
 
     return (
       <div>
@@ -83,4 +70,10 @@ class Dashboard extends Component {
   }
 }
 
-export default ApiServices(Dashboard);
+const mapStateToProps = ( store ) => {
+  return {
+    view: store.view
+  };
+};
+
+export default connect(mapStateToProps)(Dashboard);

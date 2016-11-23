@@ -1,3 +1,4 @@
+'use strict';
 const express = require('express');
 const router = express.Router();
 const db = require('../../db/controllers/controllers.js');
@@ -10,7 +11,7 @@ router.get('/', (req, res) => {
   })
   .catch((err)=> {
     console.log(err);
-  });  
+  });
 });
 
 router.post('/', (req, res) => {
@@ -37,7 +38,7 @@ router.post('/learner', (req, res) => {
   } else {
     // control for weird capitalizations
     let language = req.body.language[0].toUpperCase() + req.body.language.slice(1).toLowerCase();
-    let level = req.body.skillLevel || 'A1 - Beginner';  
+    let level = req.body.skillLevel || 'A1 - Beginner';
     db.addLearner(req.session.passport.user)
       .then(learner => {
         res.status(200).json(learner.id);

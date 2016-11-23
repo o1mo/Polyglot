@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 import SimpleWebRTC from 'simplewebrtc';
+import { connect } from 'react-redux';
 
 const videoStyle = {
   height: '75px'
 };
 
-class Chat extends Component {
+export class Chat extends Component {
   constructor(props) {
     super(props);
   }
   
   componentDidMount() {
     const videoChat = document.getElementById('videoChat');
-    let language = this.props.store.getState().language;
+    let language = this.props.language;
     let postParams = {
-      userId: this.props.store.getState().myId,
-      teacher: this.props.store.getState().teacher
+      userId: this.props.myId,
+      teacher: this.props.teacher
     };
     let webrtc = new SimpleWebRTC({
       localVideoEl: 'videoChat',
@@ -50,4 +51,12 @@ class Chat extends Component {
   }
 }
 
-export default Chat;
+const mapStateToProps = ( store ) => {
+  return {
+    userId: store.userId,
+    teacher: store.teacher,
+    language: store.language
+  };
+};
+
+export default connect( mapStateToProps )( Chat );

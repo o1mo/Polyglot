@@ -15,11 +15,11 @@ describe('Server Routes', function() {
   
   it('Should serve index.html at other defined routes', function(done) {
     var promises = [
-      rp('http://127.0.0.1:8000/home')
+      rp('http://127.0.0.1:8000/')
         .then(function(htmlString) {
           expect(htmlString.substring(0, htmlString.indexOf('\n'))).to.equal('<!DOCTYPE html>');
         }),
-      rp('http://127.0.0.1:8000/chat')
+      rp('http://127.0.0.1:8000/nav/chat')
         .then(function(htmlString) {
           expect(htmlString.substring(0, htmlString.indexOf('\n'))).to.equal('<!DOCTYPE html>');
         }),

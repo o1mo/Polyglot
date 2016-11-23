@@ -3,10 +3,10 @@ import React from 'react';
 import { mount, shallow, render } from 'enzyme';
 import { expect } from 'chai';
 import App from '../../client/src/app/components/App';
-import Dashboard from '../../client/src/app/components/Dashboard';
+import { Dashboard } from '../../client/src/app/components/Dashboard';
 import Splash from '../../client/src/app/components/Splash';
-import Chat from '../../client/src/app/components/Chat';
-import LaunchPad from '../../client/src/app/components/LaunchPad';
+import { Chat } from '../../client/src/app/components/Chat';
+import { LaunchPad } from '../../client/src/app/components/LaunchPad';
 
 describe('React Components', function () {
 
