@@ -27,7 +27,7 @@ describe('Dashboard reducer', function() {
       pairId: null,
       language: null,
       teacher: true,
-      view: 1,
+      view: 1
     };
     
     expect(reducer( initialState, action )).to.eql( resState );
@@ -43,11 +43,11 @@ describe('Dashboard reducer', function() {
     };
 
     let resState = {
-      myId: 123,
+      myId: null,
       pairId: null,
       language: 'Spanish',
       teacher: null,
-      view: 2,
+      view: 2
     };
     
     expect(reducer( initialState, action )).to.eql( resState );
@@ -59,7 +59,42 @@ describe('Dashboard reducer', function() {
       type: types.EXIT_CHAT,
     };
     
-    expect(reducer( initialState, action )).to.eql( initialState ); 
+    let reState = {
+      myId: null,
+      pairId: null,
+      language: null,
+      teacher: null,
+      view: 4
+    };
+    
+    expect(reducer( initialState, action )).to.eql( reState ); 
   });
   
+  it('Should handle GET_ID', function() {
+    
+    let action = {
+      type: types.GET_ID,
+      myId: 123
+    };
+    
+    let resState = {
+      myId: 123,
+      pairId: null,
+      language: null,
+      teacher: null,
+      view: 0
+    };
+    
+    expect(reducer( initialState, action )).to.eql( resState ); 
+  });
+
+  it('Should handle RESET', function() {
+    let action = {
+      type: types.RESET,
+    };
+    
+    expect(reducer( initialState, action )).to.eql( initialState ); 
+
+  });
+
 });

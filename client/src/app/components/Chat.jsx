@@ -2,14 +2,37 @@ import React, { Component } from 'react';
 import $ from 'jquery';
 import SimpleWebRTC from 'simplewebrtc';
 import { connect } from 'react-redux';
+import VideoChat from './VideoChat';
+import TextChat from './TextChat';
+import CardAdd from './CardAdd';
+import * as types from '../actionTypes.js';
+let IP;
 
-const videoStyle = {
-  height: '75px'
-};
+if (process.env.NODE_ENV === 'development') {
+  IP = 'localhost';
+} else {
+  IP = '138.68.0.65';
+}
 
 export class Chat extends Component {
   constructor(props) {
     super(props);
+
+    // This is in the constructor
+    // bc it needs to happen before
+    // the component mounts
+    this.webrtc = new SimpleWebRTC({
+      // TODO: dynamically configure the url
+      // for dev and production environments
+      url: `http://${IP}:8888`,
+      localVideoEl: 'videoChat',
+      remoteVideosEl: 'inbound-video',
+      autoRequestMedia: true,
+      nick: this.props.myId
+    });
+    this.leave = () => {
+      this.webrtc.leaveRoom();
+    };
   }
   
   componentDidMount() {
@@ -19,23 +42,30 @@ export class Chat extends Component {
       userId: this.props.myId,
       teacher: this.props.teacher
     };
-    let webrtc = new SimpleWebRTC({
-      localVideoEl: 'videoChat',
-      remoteVideosEl: 'remoteVideos',
-      autoRequestMedia: true
-    });
+    
 
     $.post(`/api/sessions/${ language }`, postParams)
       .done((pair) => {
         if ( pair === 'OK' ) {
+          { console.log(pair); }
+          
           // set up answer
-          webrtc.on('readyToCall', () => {
-            webrtc.joinRoom(JSON.stringify(postParams.userId));
+          this.webrtc.on('readyToCall', () => {
+            this.webrtc.joinRoom(JSON.stringify(postParams.userId));
+          });
+          this.webrtc.on('videoAdded', ( video, peer ) => {
+            { console.log('PEER ANS', peer.nick); }
+            this.props.getPeer( peer.nick ); 
           });
         } else {
+          { console.log(pair); }
           // make a call
-          webrtc.on('readyToCall', () => {
-            webrtc.joinRoom(pair);
+          this.webrtc.on('readyToCall', () => {
+            this.webrtc.joinRoom(pair);
+          });
+          this.webrtc.on('videoAdded', ( video, peer ) => {
+            { console.log('PEER CALL', peer.nick); }
+            this.props.getPeer( peer.nick );
           });
         }
       });
@@ -43,9 +73,10 @@ export class Chat extends Component {
   
   render () {
     return (
-      <div>
-        <div id='remoteVideos'></div>
-        <video style={ videoStyle } id='videoChat'></video>
+      <div className='chat-container'>
+        <VideoChat leave={ this.leave }/>
+        <CardAdd/>
+        <TextChat/>
       </div>
     );
   }
@@ -53,10 +84,19 @@ export class Chat extends Component {
 
 const mapStateToProps = ( store ) => {
   return {
-    userId: store.userId,
+    myId: store.myId,
     teacher: store.teacher,
     language: store.language
   };
 };
 
-export default connect( mapStateToProps )( Chat );
+const mapDispatchToProps = ( dispatch, ownProps ) => {
+  return {
+    getPeer: ( peerId ) => {
+      let action = { type: types.ADD_PAIR, pairId: peerId };
+      dispatch( action );
+    }
+  };
+};
+
+export default connect( mapStateToProps, mapDispatchToProps )( Chat );

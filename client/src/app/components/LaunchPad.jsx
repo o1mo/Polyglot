@@ -10,7 +10,9 @@ const style = {
   textAlign: 'center',
   paddingTop: 10
 };
-  
+
+let languages;
+
 export class LaunchPad extends Component {
   constructor(props) {
     super(props);
@@ -24,6 +26,7 @@ export class LaunchPad extends Component {
     return axios.get('api/languages')
       .then((lang)=>{
         this.setState({languages: lang.data});
+        languages = lang;
       });
   }
   
@@ -41,6 +44,7 @@ export class LaunchPad extends Component {
       <h1>Hello World</h1>
         <DropDownMenu value={this.state.value} onChange={ this.props.handleSubmit }>
           {this.state.languages.map((lang, key)=>{
+            console.log(lang, key);
             return <MenuItem value={key} key={key} label="English" primaryText={lang} />;
           })}
         </DropDownMenu>
@@ -51,17 +55,15 @@ export class LaunchPad extends Component {
 
 const mapStateToProps = ( store ) => {
   return {
-    userId: store.userId
   };
 };
 
 const mapDispatchToProps = ( dispatch, ownProps ) => {
   return {
-    handleSubmit: ( e, i, value ) => {
+    handleSubmit: ( e, i, value, fourth ) => {
       e.preventDefault();
-      let language = value;
-      let myId = ownProps.userId;
-      let action = { type: types.ENTER_CHAT, myId: myId, language: language };
+      let language = languages.data[ value ];
+      let action = { type: types.ENTER_CHAT, language: language };
       dispatch(action);
     }
   };

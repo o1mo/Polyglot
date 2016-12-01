@@ -117,5 +117,63 @@ describe('API tests', function() {
       done();
     });
   });
+
+  it('Should POST to /api/users/medals', function(done) {
+    var reqParams = {
+      uri: 'http://127.0.0.1:8000/api/users/medals',
+      method: 'POST',
+      json: {
+        medal: 'Gold',
+      }
+    };
+    request(reqParams, function(err, response, body) {
+      expect(response.statusCode).to.equal(401);
+      done();
+    });
+  });
+
+  it('Should GET all medals from /api/medals', function(done) {
+    request('http://127.0.0.1:8000/api/medals', function(err, response, body) {
+      expect(response.statusCode).to.equal(401);
+      done();
+    });
+  });
+
+  it('Should POST a card to /api/cards', function(done) {
+    var reqParams = {
+      uri: 'http://127.0.0.1:8000/api/cards',
+      method: 'POST',
+      json: {
+        word: 'Hola',
+        translation: 'Hello',
+      }
+    };
+    request(reqParams, function(err, response, body) {
+      expect(response.statusCode).to.equal(401);
+      done();
+    });
+  });
+
+  it('Should POST an updated card to /api/cards/update', function(done) {
+    var reqParams = {
+      uri: 'http://127.0.0.1:8000/api/cards/update',
+      method: 'POST',
+      json: {
+        updatedWord: 'Hola',
+        updatedTranslation: 'Hello',
+      }
+    };
+    request(reqParams, function(err, response, body) {
+      expect(response.statusCode).to.equal(401);
+      done();
+    });
+  });
+
+  it('Should GET all cards from /api/cards', function(done) {
+    request('http://127.0.0.1:8000/api/cards', function(err, response, body) {
+      expect(response.statusCode).to.equal(401);
+      done();
+    });
+  });
 });
 

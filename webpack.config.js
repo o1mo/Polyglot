@@ -5,6 +5,18 @@ var loader = require('babel-loader');
 var BUILD_DIR = path.resolve(__dirname, 'client/src/public');
 var APP_DIR = path.resolve(__dirname, 'client/src');
 
+var getPlugins = function() {
+  var plugins = [];
+
+  // do this push stuff in case we have to 
+  // configure more plugins for production or
+  // development
+  plugins.push( new webpack.DefinePlugin({
+    'process.env': { NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development') }
+  }));
+  return plugins;
+};
+
 var config = {
   entry: APP_DIR + '/index.jsx',
   devtool: 'source-map',
@@ -33,6 +45,7 @@ var config = {
       }
     ],
   },
+  plugins: getPlugins(),
   watch: true
 };
 

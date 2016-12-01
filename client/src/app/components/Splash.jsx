@@ -32,8 +32,6 @@ class Splash extends Component {
         var id = user.data;
         if (id > 0) {
           browserHistory.push('dashboard');
-        } else {
-          browserHistory.push('fourOFour');
         }
       }); 
     });

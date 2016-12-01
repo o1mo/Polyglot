@@ -1,3 +1,6 @@
+body{
+  background-color: #ECEFF1;
+}
 .dashBoardButtons {
   text-align: center;
 }
@@ -15,3 +18,32 @@
   background: url('../src/public/img/mountains.jpeg') no-repeat center center fixed;
   background-size: cover;
 }
+
+.chat-container {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  right: 0;
+  top: 0;
+}
+
+.inbound-video {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.outbound-video {
+  height: 75px;
+  position: absolute;
+}
+
+.center {
+  text-align: center;
+}
+/*.innerDrawer {
+  background-color: blue; 
+}*/
+

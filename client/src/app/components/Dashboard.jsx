@@ -1,25 +1,35 @@
 import React, { Component } from 'react';
 import { applyMiddleware, createStore } from 'redux';
+import * as types from '../actionTypes';
 import thunk from 'redux-thunk';
 import promise from 'redux-promise';
 import createLogger from 'redux-logger';
 import { browserHistory } from 'react-router';
 import ApiServices from '../componentServices/ApiServices';
 import LaunchPad from './LaunchPad';
+import NavBar from './NavBar';
 import Chat from './Chat';
+import Cards from './Cards';
+import Credits from './Credits';
+import ExitChat from './ExitChat';
 import DashButtons from './DashButtons';
-import $ from 'jquery';
 import dashReducer from '../reducers/Dashboard';
 import AppBar from 'material-ui/AppBar';
-import SideDrawer from './SideDrawer';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 let userId;
 
-const styles = {
+const style = {
   container: {
     textAlign: 'center',
     paddingTop: 100,
+  },
+  navContainer: {
+    textAlign: 'center',
+  }, 
+  credits: {
+    margin: '0px 0px 0px 20px',
   }
 };
 
@@ -28,41 +38,38 @@ export class Dashboard extends Component {
   constructor(props) {
     super(props);
 
-    $.get('/api/users')
-      .done((data) => {
-        userId = data;
+    axios.get('/api/users')
+      .then((resp) => {
+        this.props.sendId( resp.data );
       });
-  }
-
-  /* eslint-disable */
-  reDirect() {
-    return <Link to='/dashboard'><button>Save</button></Link>
   }
 
   render() {
     let viewControl = this.props.view;
     let comp = null;
-
+    
+    /* eslint-disable */
     if ( viewControl === 0 ) {
       comp = <DashButtons/>
     } else if ( viewControl === 1 ) {
-      comp = <LaunchPad userId={ userId }/>
+      comp = <LaunchPad myId={ userId }/>
     } else if ( viewControl === 2 ) {
       comp = <Chat/>
-    }
-
-    /* eslint-enable */ 
-
+    } else if ( viewControl === 3 ) {
+      comp = <Cards/>
+    } else if ( viewControl === 4 ) {
+      comp = <ExitChat/>
+    } 
+    /* eslint-enable */
     return (
       <div>
-        <AppBar
-          title="Lango"
-          titleStyle={{ textAlign: 'center' }}
-          showMenuIconButton={false}
-        >
-          <SideDrawer />
-        </AppBar>
-        <div style={styles.container}>
+        <div style={style.navContainer}>
+          <NavBar />        
+        </div>
+        <div style={style.credits}>
+          <Credits/>
+        </div>
+        <div style={style.container}>
           { comp }
         </div>
       </div>
@@ -76,4 +83,13 @@ const mapStateToProps = ( store ) => {
   };
 };
 
-export default connect(mapStateToProps)(Dashboard);
+const mapDispatchToProps = ( dispatch, ownProps ) => {
+  return {
+    sendId: ( newId ) => {
+      let action = { type: types.GET_ID, myId: newId };
+      dispatch(action);
+    }
+  };
+};
+
+export default connect( mapStateToProps, mapDispatchToProps )(Dashboard);

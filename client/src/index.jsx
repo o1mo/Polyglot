@@ -9,7 +9,9 @@ import createLogger from 'redux-logger';
 import { Provider } from 'react-redux';
 import App from './app/components/App';
 import Splash from './app/components/Splash';
+import Cards from './app/components/Cards';
 import Dashboard from './app/components/Dashboard';
+import Achievements from './app/components/Achievements';
 import Profile from './app/components/Profile';
 import fourOFour from './app/components/fourOFour';
 import dashReducer from './app/reducers/Dashboard';
@@ -21,7 +23,7 @@ let initialState = {
   pairId: null,
   language: null,
   teacher: null,
-  view: 0,
+  view: 0
 };
 
 let store = createStore(dashReducer, initialState, applyMiddleware( thunk, promise, logger ));
@@ -37,6 +39,8 @@ render((
         <Route path='nav' component={ Dashboard }>
         </Route>
         <Route path='dashboard' component={ Dashboard }/>
+        <Route path='Achievements' component={ Achievements }/>
+        <Route path='cards' component={ Cards }/>
         <Route path='fourOFour' component={ fourOFour }/>
       </Route>
     </Router>

@@ -9,7 +9,8 @@ const getPartner = (id, language, teacher) => {
   if (teacher === true) {
     langsAndIds.students[language] = langsAndIds.students[language] || [];
     if (langsAndIds.students[language].length > 0) {
-      return langsAndIds.students[language].shift();
+      let result = langsAndIds.students[language].shift();
+      return result;
     } else {
       langsAndIds.teachers[language] = langsAndIds.teachers[language] || [];
       langsAndIds.teachers[language].push(id);
@@ -18,7 +19,8 @@ const getPartner = (id, language, teacher) => {
   } else {
     langsAndIds.teachers[language] = langsAndIds.teachers[language] || [];
     if (langsAndIds.teachers[language].length > 0) {
-      return langsAndIds.teachers[language].shift();
+      let result = langsAndIds.teachers[language].shift();
+      return result;
     } else {
       langsAndIds.students[language] = langsAndIds.students[language] || [];
       langsAndIds.students[language].push(id);

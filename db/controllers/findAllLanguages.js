@@ -6,7 +6,7 @@ module.exports = () => {
   })
   .then((resp) => {
     return resp.map((item) => {
-      return item.name;
-    });
-  }); 
+      return item.name
+    })
+  }) 
 };
