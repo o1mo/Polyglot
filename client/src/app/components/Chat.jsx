@@ -10,9 +10,9 @@ import Paper from 'material-ui/Paper';
 let IP;
 
 if (process.env.NODE_ENV === 'development') {
-  IP = 'localhost';
+  IP = 'http://localhost:8888';
 } else {
-  IP = '138.68.0.65';
+  IP = 'https://lango-1698536321.us-west-2.elb.amazonaws.com/';
 }
 
 export class Chat extends Component {
@@ -25,7 +25,7 @@ export class Chat extends Component {
     this.webrtc = new SimpleWebRTC({
       // TODO: dynamically configure the url
       // for dev and production environments
-      url: `http://${IP}:8888`,
+      // url: `${IP}`,
       localVideoEl: 'videoChat',
       remoteVideosEl: 'inbound-video',
       autoRequestMedia: true,

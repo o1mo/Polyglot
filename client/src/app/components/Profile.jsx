@@ -57,7 +57,7 @@ class Profile extends Component {
       learning: [{languageName: "Loading", level100: 0, levelName: "Advanced", nextLevel: "Master"}],
       showDashboard: false,
       username: 'Omar',
-      nativeLanguage: 'Egyptian',
+      nativeLanguage: 'English',
       friends: ['smith', 'jones', 'snoopDog', 'jason', 'JP'],
       friendsButtonName: 'Friends',
     };

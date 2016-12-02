@@ -8,15 +8,15 @@ const keys = require('../config/keys.js');
 let IP;
 
 if (process.env.NODE_ENV === 'development') {
-  IP = 'localhost';
+  IP = 'http://localhost';
 } else {
-  IP = '138.68.0.65';
+  IP = 'https://lango-1698536321.us-west-2.elb.amazonaws.com/';
 }
 
 const fBStrategy = new Strategy({
   clientID: keys.CLIENT_ID,
   clientSecret: keys.CLIENT_SECRET,
-  callbackURL: 'http://' + IP + ':8000/login/facebook/return',
+  callbackURL: IP + 'login/facebook/return',
   profileFields: ['email', 'displayName', 'id', 'picture.type(large)']
 }, function(accessToken, refreshToken, profile, cb) {
   return cb(null, profile);

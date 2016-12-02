@@ -10,9 +10,10 @@ services:
       - postgres
     ports:
       - "8000:8000"
+      - "8888:8888"
     depends_on:
       - postgres
-    command: bash -c "npm install -g knex && knex migrate:latest --env production && npm start"
+    command: bash -c "npm install -g knex && knex migrate:latest --env production && knex seed:run --env production && npm start"
   postgres:
     image: postgres
     environment:
