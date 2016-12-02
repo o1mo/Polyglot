@@ -4,7 +4,6 @@ const router = express.Router();
 const db = require('../../db/controllers/controllers.js');
 
 router.get('/', (req, res) => {
-  console.log('in here$$$$')
   db.findAllLanguages()
   .then((languages) => {
     res.send(languages);

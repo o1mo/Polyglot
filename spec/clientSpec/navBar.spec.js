@@ -5,7 +5,7 @@ import { expect } from 'chai';
 import Drawer from 'material-ui/Drawer';
 import AppBar from 'material-ui/AppBar';
 import MenuItem from 'material-ui/MenuItem';
-import NavBar from '../../client/src/app/components/NavBar';
+import { NavBar } from '../../client/src/app/components/NavBar';
 
 describe('NavBar Component', function () {
 

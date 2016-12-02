@@ -6,6 +6,7 @@ import VideoChat from './VideoChat';
 import TextChat from './TextChat';
 import CardAdd from './CardAdd';
 import * as types from '../actionTypes.js';
+import Paper from 'material-ui/Paper';
 let IP;
 
 if (process.env.NODE_ENV === 'development') {
@@ -74,9 +75,17 @@ export class Chat extends Component {
   render () {
     return (
       <div className='chat-container'>
-        <VideoChat leave={ this.leave }/>
-        <CardAdd/>
-        <TextChat/>
+        <Paper className='paper vc-paper'>
+          <VideoChat leave={ this.leave }/>
+        </Paper>
+        <div>
+          <Paper className='paper card-paper'>
+            <CardAdd/>
+          </Paper>
+          <Paper className='paper text-paper'>
+            <TextChat/>
+          </Paper>
+        </div>
       </div>
     );
   }

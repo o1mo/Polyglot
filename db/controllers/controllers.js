@@ -9,10 +9,15 @@ const findAllLanguages = require('./findAllLanguages.js');
 const addCard = require('./addCard.js');
 const updateCard = require('./updateCard.js');
 const getCards = require('./getCards.js');
+const deleteCard = require('./deleteCard.js');
 const updateStars = require('./updateStars.js');
 const updateCredits = require('./updateCredits.js');
 const addFriend = require('./addFriend.js');
 const getFriends = require('./getFriends.js');
+const updateCardsReviewed = require('./updateCardsReviewed.js');
+const updateHoursTaught = require('./updateHoursTaught.js');
+const updateHoursLearned = require('./updateHoursLearned.js');
+const getAchievements = require('./getAchievements.js');
 
 module.exports = {
   addUser: addUser,
@@ -26,8 +31,13 @@ module.exports = {
   addCard: addCard,
   updateCard: updateCard,
   getCards: getCards,
+  deleteCard: deleteCard,
   updateStars: updateStars,
   updateCredits: updateCredits,
   addFriend: addFriend,
-  getFriends: getFriends
+  getFriends: getFriends,
+  updateCardsReviewed: updateCardsReviewed,
+  updateHoursTaught: updateHoursTaught,
+  updateHoursLearned: updateHoursLearned,
+  getAchievements: getAchievements
 };

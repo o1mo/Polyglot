@@ -10,4 +10,5 @@ database:
 
   override:
     - "createdb lango_test"
-    - "knex migrate: latest --env test"
+    - "knex migrate:rollback --env test"
+    - "knex migrate:latest --env test"

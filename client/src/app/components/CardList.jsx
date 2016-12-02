@@ -11,7 +11,6 @@ class CardList extends Component {
           <TableRow>
             <TableHeaderColumn>Phrase</TableHeaderColumn>
             <TableHeaderColumn>Translation</TableHeaderColumn>
-            <TableHeaderColumn>Edit</TableHeaderColumn>
             <TableHeaderColumn>Delete</TableHeaderColumn>
           </TableRow>
         </TableHeader>
@@ -19,11 +18,12 @@ class CardList extends Component {
           {
             this.props.cards.map((card, index) => {
               return (
-                <TableRow>
-                  <TableRowColumn>{card.word}</TableRowColumn>
+                <TableRow key={card.id} >
+                  <TableRowColumn>{card.phrase}</TableRowColumn>
                   <TableRowColumn>{card.translation}</TableRowColumn>
-                  <FontIcon className="material-icons" hoverColor='red'>edit</FontIcon>
-                  <FontIcon className="material-icons" hoverColor='red'>delete</FontIcon>
+                  <TableRowColumn>
+                    <FontIcon className="material-icons" hoverColor='red' onTouchTap={() => {this.props.handleDelete(card.id);}}>delete</FontIcon>
+                  </TableRowColumn>
                 </TableRow>
               );
             })}

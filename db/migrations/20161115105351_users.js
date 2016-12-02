@@ -9,6 +9,9 @@ exports.up = function(knex, Promise) {
       table.string('photo_url');
       table.integer('credits').defaultTo(0);
       table.integer('stars').defaultTo(0);
+      table.integer('hours_learned').defaultTo(0);
+      table.integer('hours_taught').defaultTo(0);
+      table.integer('cards_reviewed').defaultTo(0);
     }),
     knex.schema.createTableIfNotExists('friends', table => {
       table.increments();
@@ -17,7 +20,8 @@ exports.up = function(knex, Promise) {
     }),    
     knex.schema.createTableIfNotExists('learners', table => {
       table.increments();
-      table.integer('user_id').references('id').inTable('users');
+      table.integer('user_id')
+      // .references('id').inTable('users');
       table.integer('language_id').references('id').inTable('languages');
       table.integer('level_id').references('id').inTable('levels');
     }),

@@ -41,6 +41,9 @@ describe('Database Tests', () => {
           expect(response[0].photo_url).to.equal('http://facebookphoto');
           expect(response[0].credits).to.equal(0);
           expect(response[0].stars).to.equal(0);
+          expect(response[0].hours_learned).to.equal(0);
+          expect(response[0].hours_taught).to.equal(0);
+          expect(response[0].cards_reviewed).to.equal(0);
           done();
         });
     });
@@ -154,15 +157,6 @@ describe('Database Tests', () => {
           expect(languages.map(lang => {
             return lang.nextLevel;
           })).to.include('Elementary', 'Master');
-
-          // expect(lang1.languageName).to.equal('Mandarin');
-          // expect(lang1.level100).to.equal(16.6);
-          // expect(lang1.levelName).to.equal('Beginner');
-          // expect(lang1.nextLevel).to.equal('Elementary');          
-          // expect(lang2.languageName).to.equal('Spanish');
-          // expect(lang2.level100).to.equal(83.3);
-          // expect(lang2.levelName).to.equal('Advanced');
-          // expect(lang2.nextLevel).to.equal('Master');
           done();
         });
     });
@@ -240,6 +234,20 @@ describe('Database Tests', () => {
         });
     });
 
+    it('should delete a user\'s card', done => {
+      controllers.addCard('test@test.com', 'I want to learn this', 'this is the translation')
+        .then(response => {
+          return controllers.deleteCard(1);
+        })
+        .then(response => {
+          return controllers.getCards('test@test.com');
+        })
+        .then(response => {
+          expect(response.length).to.equal(0);
+          done();
+        });
+    });
+
     it('should update a user\'s star count', done => {
       controllers.updateStars('test@test.com', 10)
         .then(() => {
@@ -279,6 +287,69 @@ describe('Database Tests', () => {
         })
         .catch(response => {
           console.log('there was an error in updating credits', response);
+        });
+    });       
+
+    it('should update a user\'s hours taught count', done => {
+      controllers.updateHoursTaught('test@test.com', 10)
+        .then(() => {
+          return db('users').select('hours_taught').where({email: 'test@test.com'});
+        })
+        .then(response => {
+          expect(response[0].hours_taught).to.equal(10);
+          return controllers.updateHoursTaught('test@test.com', -10)
+            .then(() => {
+              return db('users').select('hours_taught').where({email: 'test@test.com'});
+            });
+        })
+        .then(response => {
+          expect(response[0].hours_taught).to.equal(0);
+          done();
+        })
+        .catch(response => {
+          console.log('there was an error in updating hours taught', response);
+        });
+    }); 
+
+    it('should update a user\'s hours learned count', done => {
+      controllers.updateHoursLearned('test@test.com', 10)
+        .then(() => {
+          return db('users').select('hours_learned').where({email: 'test@test.com'});
+        })
+        .then(response => {
+          expect(response[0].hours_learned).to.equal(10);
+          return controllers.updateHoursLearned('test@test.com', -10)
+            .then(() => {
+              return db('users').select('hours_learned').where({email: 'test@test.com'});
+            });
+        })
+        .then(response => {
+          expect(response[0].hours_learned).to.equal(0);
+          done();
+        })
+        .catch(response => {
+          console.log('there was an error in updating hours learned', response);
+        });
+    });    
+
+    it('should update a user\'s cards reviewed count', done => {
+      controllers.updateCardsReviewed('test@test.com', 10)
+        .then(() => {
+          return db('users').select('cards_reviewed').where({email: 'test@test.com'});
+        })
+        .then(response => {
+          expect(response[0].cards_reviewed).to.equal(10);
+          return controllers.updateCardsReviewed('test@test.com', -10)
+            .then(() => {
+              return db('users').select('cards_reviewed').where({email: 'test@test.com'});
+            });
+        })
+        .then(response => {
+          expect(response[0].cards_reviewed).to.equal(0);
+          done();
+        })
+        .catch(response => {
+          console.log('there was an error in updating cards_reviewed', response);
         });
     });
 
@@ -323,6 +394,22 @@ describe('Database Tests', () => {
           console.log(err);
           done();
         });
+    });
+
+    it('should get a user\'s achievements', done => {
+      Promise.all([
+        controllers.updateCardsReviewed('test@test.com', 100), 
+        controllers.updateHoursLearned('test@test.com', 100), 
+        controllers.updateHoursTaught('test@test.com', 100), 
+        controllers.updateStars('test@test.com', 100), 
+      ])
+      .then(()=> {
+        return controllers.getAchievements('test@test.com');
+      })
+      .then(response => {
+        expect(response).to.include('Intergalactic Intelligence (100 stars recieved)', 'Marathon Master (100 hours learned)', 'Oracle (100 hours taught)', 'Photographic Memory (500 cards reviewed)');
+        done();
+      });
     });
 
   });

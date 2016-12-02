@@ -47,8 +47,8 @@ class Splash extends Component {
             <RaisedButton
               className='enterButton'
               label="Sign In with Facebook"
-              secondary
-              onTouchTap={() => this.handleEnter() }/>
+              onTouchTap={() => this.handleEnter() }
+              primary />
           </div>
         </div>
       </div>

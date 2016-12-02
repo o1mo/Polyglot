@@ -17,7 +17,7 @@ const fBStrategy = new Strategy({
   clientID: keys.CLIENT_ID,
   clientSecret: keys.CLIENT_SECRET,
   callbackURL: 'http://' + IP + ':8000/login/facebook/return',
-  profileFields: ['email', 'displayName', 'id']
+  profileFields: ['email', 'displayName', 'id', 'picture.type(large)']
 }, function(accessToken, refreshToken, profile, cb) {
   return cb(null, profile);
 });
@@ -28,14 +28,16 @@ var handleAuthReturn = passport.authenticate('facebook', { failureRedirect: '/lo
 var handleAuthCB = function(req, res) {
   var user = req.user;
   var email = user.emails[0].value;
+  var url = req.user._json.picture.data.url;
+  console.log('-----------',user);
   db.findUserByEmail(email)
   .then(function(resp) {
     if (resp) {
       res.redirect('/dashboard');
     } else {
-      db.addUser(user.displayName, user.emails[0].value, user.id)
+      db.addUser(user.displayName, email, user.id, url)
       .then(function(user) {
-        console.log('user added');
+        console.log('******* user added *******');
       });
     }
   });

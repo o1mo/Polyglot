@@ -1,6 +1,10 @@
 body{
   background-color: #ECEFF1;
 }
+video{
+  height: inherit;
+  width: inherit;
+}
 .dashBoardButtons {
   text-align: center;
 }
@@ -18,32 +22,54 @@ body{
   background: url('../src/public/img/mountains.jpeg') no-repeat center center fixed;
   background-size: cover;
 }
-
 .chat-container {
-  height: 100%;
-  width: 100%;
-  position: relative;
-  right: 0;
-  top: 0;
-}
-
-.inbound-video {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-
-.outbound-video {
-  height: 75px;
-  position: absolute;
+  display: flex;
 }
 
 .center {
   text-align: center;
 }
-/*.innerDrawer {
-  background-color: blue; 
-}*/
 
+.vc-paper {
+  height: 450px;
+  width: 600px;
+  margin: 20px;
+  /* display: inline-block; */
+}
+
+.outbound-video {
+  position: absolute;
+  height: 75px;
+  width: 100px;
+  z-index: 2;
+  top: 515px;
+  left: inherit;
+}
+
+.inbound-container {
+/*  position: absolute;
+  height: inherit;
+  width: inherit;*/
+}
+
+video {
+  height: 450px;
+  width: 600px;
+}
+
+.card-paper {
+  width: 300px;
+  height: 200px;
+  margin: 20px;
+}
+
+.text-paper {
+  width: 300px;
+  height: 150px;
+  margin: 20px
+}
+
+#videoChat {
+  height: 75px;
+  width: 100px;
+}

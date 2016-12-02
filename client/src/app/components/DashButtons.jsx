@@ -1,16 +1,31 @@
 import React, { Component } from 'react';
 import * as types from '../actionTypes.js';
 import { connect } from 'react-redux';
+import Divider from 'material-ui/Divider';
 import {Menu, MenuItem} from 'material-ui/Menu';
 import Popover from 'material-ui/Popover';
 import RaisedButton from 'material-ui/RaisedButton';
 import { browserHistory } from 'react-router';
 
 const style = {
-  textAlign: 'center',
-  margin: '50px',
+  container: {
+    display: 'flex', 
+    justifyContent: 'center',
+  },
+  menuItem: {
+    fontSize: '180%', 
+  }
 };
 
+
+const mapStateToProps = ( store ) => {
+  return {
+    view: store.view
+  };
+};
+
+
+/* eslint-enable */
 export class DashButtons extends Component {
   constructor(props) {
     super(props);
@@ -21,45 +36,22 @@ export class DashButtons extends Component {
 
   render() {
     return (
-      <div style={style}>
-        <RaisedButton
-          label="Teach"
-          primary
-          style={style}
-          onTouchTap={ this.props.handleTeach.bind(this) }
-        />
-        <br />
-        <RaisedButton
-          label="Learn"
-          primary
-          style={style}
-          onTouchTap={ this.props.handleLearn.bind(this) }
-        />
-        <br />
-        <RaisedButton
-          label="Review Vocab"
-          primary
-          style={style}
-          onTouchTap={ this.props.handleCards.bind(this) }
-        />
-        <RaisedButton
-          label="Achievements"
-          primary
-          style={style}
-          onTouchTap={ () => {
-            browserHistory.push('achievements');
-          }}
-        />
-       </div>
+      <div style={style.container}>
+        <Menu desktop={true}>      
+          <MenuItem 
+          style={style.menuItem} 
+          primaryText="Teach"
+          onTouchTap={ this.props.handleTeach } />      
+          <Divider />
+          <MenuItem 
+          style={style.menuItem} 
+          primaryText="Learn" 
+          onTouchTap={ this.props.handleLearn } />
+        </Menu>                
+      </div>
     );
   }
 }
-
-const mapStateToProps = ( store ) => {
-  return {
-    view: store.view
-  };
-};
 
 /* eslint-disable */
 const mapDispatchToProps = ( dispatch ) => {
@@ -83,6 +75,5 @@ const mapDispatchToProps = ( dispatch ) => {
     }
   };
 };
-/* eslint-enable */
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashButtons);

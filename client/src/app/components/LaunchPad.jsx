@@ -29,19 +29,17 @@ export class LaunchPad extends Component {
         languages = lang;
       });
   }
-  
-  // handleSubmit(e, i, value) {
-  //   e.preventDefault();
-  //   let language = value;
-  //   let myId = this.props.userId;
-  //   let action = { type: types.ENTER_CHAT, myId: myId, language: language };
-  //   this.props.store.dispatch(action);
-  // }
-
+ 
   render() {
+    let greeting;
+    if ( this.props.teacher ) {
+      greeting = 'Select language to teach';
+    } else if ( !this.props.teacher ) {
+      greeting = 'Select language to learn';
+    } 
     return (
       <div>
-      <h1>Hello World</h1>
+      <h1>{ greeting }</h1>
         <DropDownMenu value={this.state.value} onChange={ this.props.handleSubmit }>
           {this.state.languages.map((lang, key)=>{
             console.log(lang, key);
@@ -55,6 +53,7 @@ export class LaunchPad extends Component {
 
 const mapStateToProps = ( store ) => {
   return {
+    teacher: store.teacher
   };
 };
 

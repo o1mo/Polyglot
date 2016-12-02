@@ -4,10 +4,21 @@ import OutboundVideo from './OutboundVideo';
 import ExitChat from './ExitChat';
 import Dialog from 'material-ui/Dialog';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
 import { connect } from 'react-redux';
 import * as types from '../actionTypes.js';
 import axios from 'axios';
+import FontIcon from 'material-ui/FontIcon';
+
+const styles = {
+  fab: {
+    margin: 0,
+    top: 'auto',
+    right: 50,
+    bottom: 50,
+    left: 'auto',
+    position: 'fixed',
+  }
+};
 
 export class VideoChat extends Component {
   constructor( props ) {
@@ -16,11 +27,11 @@ export class VideoChat extends Component {
 
   render() {
     return (
-      <div>
+      <div className='video-container'>
         <InboundVideo/>
         <OutboundVideo/>
-        <FloatingActionButton style={{color: 'white'}} onTouchTap={ this.props.handleClose }>
-          <ContentAdd/>
+        <FloatingActionButton style={styles.fab} onTouchTap={ this.props.handleClose }>
+           <FontIcon className="material-icons" >call_end</FontIcon>
         </FloatingActionButton>
       </div>
     );

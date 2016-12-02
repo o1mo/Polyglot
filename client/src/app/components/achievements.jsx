@@ -4,7 +4,7 @@ import { applyMiddleware, createStore } from 'redux';
 import { connect } from 'react-redux';
 import Paper from 'material-ui/Paper';
 import NavBar from './NavBar';
-
+import axios from 'axios';
 
 // list all medals in a grid with type of medal, description, time
 const style = {
@@ -28,16 +28,24 @@ class Achievements extends Component {
     super(props);
     this.state = {
       totalMedals: 0,
-      allMedals: ['Ten Hours Spanish', '1hr Looking at Cards', '5 min dab', 'OMG', 'Being a boss'],
+      allMedals: ['loading'],
       goldStars: [{from: 'languist', because: 'you rock'}, {from: 'lenny', because: 'dab dab'}]
-    }
+    };
   }
+
+  componentWillMount() {
+    axios.get('/api/medals')
+    .then(medals => {
+      var allMedals = medals.data;
+      this.setState({allMedals: allMedals});
+    });
+  } 
 
   render() {
     return (
       <div style={style.container}>
         <NavBar />
-        <h1>Achivements</h1>
+        <h1>Achievements</h1>
         {this.state.allMedals.map((medal, key)=>{
           return(
             <div key={key}>
@@ -48,7 +56,7 @@ class Achievements extends Component {
               </Paper>
               <h3>{ medal }</h3>
             </div>
-            )
+            );
         })}
         {this.state.goldStars.map((star, key)=>{
           return(
@@ -60,7 +68,7 @@ class Achievements extends Component {
               </Paper>
               <h3>{ `${star.from} says ${star.because}` }</h3>
             </div>
-            )
+            );
         })}
       </div>
     );
