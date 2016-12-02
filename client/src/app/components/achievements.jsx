@@ -29,7 +29,7 @@ class Achievements extends Component {
     this.state = {
       totalMedals: 0,
       allMedals: ['loading'],
-      goldStars: [{from: 'languist', because: 'you rock'}, {from: 'lenny', because: 'dab dab'}]
+      // goldStars: [{from: 'languist', because: 'you rock'}, {from: 'lenny', because: 'dab dab'}]
     };
   }
 
@@ -56,24 +56,25 @@ class Achievements extends Component {
               </Paper>
               <h3>{ medal }</h3>
             </div>
-            );
-        })}
-        {this.state.goldStars.map((star, key)=>{
-          return(
-            <div key={key}>
-              <Paper 
-              style={style.paper} 
-              zDepth={5} 
-              circle={true}>
-              </Paper>
-              <h3>{ `${star.from} says ${star.because}` }</h3>
-            </div>
-            );
+          );
         })}
       </div>
     );
   }
 }
+
+// {this.state.goldStars.map((star, key)=>{
+//           return(
+//             <div key={key}>
+//               <Paper 
+//               style={style.paper} 
+//               zDepth={5} 
+//               circle={true}>
+//               </Paper>
+//               <h3>{ `${star.from} says ${star.because}` }</h3>
+//             </div>
+//             );
+//         })}
 
 export default Achievements;
 

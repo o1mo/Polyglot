@@ -34,14 +34,13 @@ render((
   <Provider store={ store }>
     <Router history={browserHistory}>
       <Route path='/' component={ App }>
-        <IndexRoute component={ Splash }/>
-        <Route path='profile' component={ Profile }/>
-        <Route path='nav' component={ Dashboard }>
-        </Route>
-        <Route path='dashboard' component={ Dashboard }/>
-        <Route path='Achievements' component={ Achievements }/>
-        <Route path='cards' component={ Cards }/>
-        <Route path='fourOFour' component={ fourOFour }/>
+        <IndexRoute component={ Splash } />
+        <Route path='profile' component={ Profile } />
+        <Route path='nav' component={ Dashboard } />
+        <Route path='dashboard' component={ Dashboard } />
+        <Route path='achievements' component={ Achievements } />
+        <Route path='cards' component={ Cards } />
+        <Route path='fourOFour' component={ fourOFour } />
       </Route>
     </Router>
   </Provider>

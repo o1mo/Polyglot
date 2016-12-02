@@ -40,10 +40,10 @@ describe('Database Tests', () => {
           expect(response[0].facebook_id).to.equal('thisisafacebookid');
           expect(response[0].photo_url).to.equal('http://facebookphoto');
           expect(response[0].credits).to.equal(0);
-          expect(response[0].stars).to.equal(0);
-          expect(response[0].hours_learned).to.equal(0);
-          expect(response[0].hours_taught).to.equal(0);
-          expect(response[0].cards_reviewed).to.equal(0);
+          expect(response[0].stars).to.equal(10);
+          expect(response[0].hours_learned).to.equal(50);
+          expect(response[0].hours_taught).to.equal(20);
+          expect(response[0].cards_reviewed).to.equal(100);
           done();
         });
     });
@@ -254,14 +254,14 @@ describe('Database Tests', () => {
           return db('users').select('stars').where({email: 'test@test.com'});
         })
         .then(response => {
-          expect(response[0].stars).to.equal(10);
+          expect(response[0].stars).to.equal(20);
           return controllers.updateStars('test@test.com', -10)
             .then(() => {
               return db('users').select('stars').where({email: 'test@test.com'});
             });
         })
         .then(response => {
-          expect(response[0].stars).to.equal(0);
+          expect(response[0].stars).to.equal(10);
           done();
         })
         .catch(response => {
@@ -296,14 +296,14 @@ describe('Database Tests', () => {
           return db('users').select('hours_taught').where({email: 'test@test.com'});
         })
         .then(response => {
-          expect(response[0].hours_taught).to.equal(10);
+          expect(response[0].hours_taught).to.equal(30);
           return controllers.updateHoursTaught('test@test.com', -10)
             .then(() => {
               return db('users').select('hours_taught').where({email: 'test@test.com'});
             });
         })
         .then(response => {
-          expect(response[0].hours_taught).to.equal(0);
+          expect(response[0].hours_taught).to.equal(20);
           done();
         })
         .catch(response => {
@@ -317,14 +317,14 @@ describe('Database Tests', () => {
           return db('users').select('hours_learned').where({email: 'test@test.com'});
         })
         .then(response => {
-          expect(response[0].hours_learned).to.equal(10);
+          expect(response[0].hours_learned).to.equal(60);
           return controllers.updateHoursLearned('test@test.com', -10)
             .then(() => {
               return db('users').select('hours_learned').where({email: 'test@test.com'});
             });
         })
         .then(response => {
-          expect(response[0].hours_learned).to.equal(0);
+          expect(response[0].hours_learned).to.equal(50);
           done();
         })
         .catch(response => {
@@ -338,14 +338,14 @@ describe('Database Tests', () => {
           return db('users').select('cards_reviewed').where({email: 'test@test.com'});
         })
         .then(response => {
-          expect(response[0].cards_reviewed).to.equal(10);
+          expect(response[0].cards_reviewed).to.equal(110);
           return controllers.updateCardsReviewed('test@test.com', -10)
             .then(() => {
               return db('users').select('cards_reviewed').where({email: 'test@test.com'});
             });
         })
         .then(response => {
-          expect(response[0].cards_reviewed).to.equal(0);
+          expect(response[0].cards_reviewed).to.equal(100);
           done();
         })
         .catch(response => {
@@ -387,7 +387,7 @@ describe('Database Tests', () => {
           expect(friend.facebook_id).to.equal('thisisafacebookid');
           expect(friend.photo_url).to.equal('http://facebookphoto');
           expect(friend.credits).to.equal(0);
-          expect(friend.stars).to.equal(0);
+          expect(friend.stars).to.equal(10);
           done();
         })
         .catch(err =>{
@@ -398,6 +398,10 @@ describe('Database Tests', () => {
 
     it('should get a user\'s achievements', done => {
       Promise.all([
+        controllers.updateCardsReviewed('test@test.com', -100), 
+        controllers.updateHoursLearned('test@test.com', -50), 
+        controllers.updateHoursTaught('test@test.com', -20), 
+        controllers.updateStars('test@test.com', -10),         
         controllers.updateCardsReviewed('test@test.com', 100), 
         controllers.updateHoursLearned('test@test.com', 100), 
         controllers.updateHoursTaught('test@test.com', 100), 

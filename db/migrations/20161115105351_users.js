@@ -8,10 +8,10 @@ exports.up = function(knex, Promise) {
       table.string('facebook_id').unique();
       table.string('photo_url');
       table.integer('credits').defaultTo(0);
-      table.integer('stars').defaultTo(0);
-      table.integer('hours_learned').defaultTo(0);
-      table.integer('hours_taught').defaultTo(0);
-      table.integer('cards_reviewed').defaultTo(0);
+      table.integer('stars').defaultTo(10);
+      table.integer('hours_learned').defaultTo(50);
+      table.integer('hours_taught').defaultTo(20);
+      table.integer('cards_reviewed').defaultTo(100);
     }),
     knex.schema.createTableIfNotExists('friends', table => {
       table.increments();
@@ -20,7 +20,7 @@ exports.up = function(knex, Promise) {
     }),    
     knex.schema.createTableIfNotExists('learners', table => {
       table.increments();
-      table.integer('user_id')
+      table.integer('user_id');
       // .references('id').inTable('users');
       table.integer('language_id').references('id').inTable('languages');
       table.integer('level_id').references('id').inTable('levels');

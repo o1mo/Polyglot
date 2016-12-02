@@ -13,7 +13,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Dashboard from './Dashboard';
 import PopoverButton from './PopOverButton';
 import NavBar from './NavBar';
-import ProgressBar from './progress';
+import ProgressBar from './Progress';
 import LearningChips from './LearningChips';
 import Credits from './Credits';
 import axios from 'axios';
