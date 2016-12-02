@@ -82,9 +82,11 @@ export class Chat extends Component {
           <Paper className='paper card-paper'>
             <CardAdd/>
           </Paper>
-          <Paper className='paper text-paper'>
-            <TextChat/>
-          </Paper>
+          {
+            // <Paper className='paper text-paper'>
+            //   <TextChat/>
+            // </Paper>
+          }
         </div>
       </div>
     );

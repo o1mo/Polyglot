@@ -11,7 +11,7 @@ import App from './app/components/App';
 import Splash from './app/components/Splash';
 import Cards from './app/components/Cards';
 import Dashboard from './app/components/Dashboard';
-import Achievements from './app/components/Achievements';
+import Achievements from './app/components/achievements';
 import Profile from './app/components/Profile';
 import fourOFour from './app/components/fourOFour';
 import dashReducer from './app/reducers/Dashboard';

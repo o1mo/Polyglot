@@ -8,7 +8,7 @@ const keys = require('../config/keys.js');
 let IP;
 
 if (process.env.NODE_ENV === 'development') {
-  IP = 'http://localhost';
+  IP = 'http://localhost:8000/';
 } else {
   IP = 'https://lango-1698536321.us-west-2.elb.amazonaws.com/';
 }
