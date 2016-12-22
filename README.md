@@ -1,7 +1,7 @@
 Master Build: [![CircleCI](https://circleci.com/gh/uberforcats/2016-09-thesis/tree/master.svg?style=svg)](https://circleci.com/gh/uberforcats/2016-09-thesis/tree/master)
 Dev Build: [![CircleCI](https://circleci.com/gh/uberforcats/2016-09-thesis/tree/dev.svg?style=svg)](https://circleci.com/gh/uberforcats/2016-09-thesis/tree/dev)
 
-# Lango
+# Polyglot
 
 > Chatroulette for language learning
 
